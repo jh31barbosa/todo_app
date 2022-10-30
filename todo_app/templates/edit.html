@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row mx-auto my-5">
+            <div class="col-md-8 mx-auto card p-5">
+                <h1 class="display-6">Edit Todo</h1>
+                <form  method="POST">
+                    {% csrf_token %}
+                  <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label"
+                            >Task</label
+                        >
+                      {{todo_form.title}}
+                    </div>
+                    <div class="mb-3">
+                        {{todo_form.status}}
+                        <label class="form-check-label" for="gridCheck">
+                         Status
+                        </label>
+                    </div>
+                   
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-dark" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

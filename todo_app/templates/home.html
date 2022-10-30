@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block content %}
+<section>
+	<div class="container">
+		<div class="row mx-auto my-5">
+			<div class="col-md-8 mx-auto card p-5">
+				<h1>{{request.user.username | capfirst}} Todo's</h1>
+				<form class="row" method="POST" action="{% url 'home' %}">
+					{% csrf_token %}
+					<div class="col-md-10">
+						<div class="input-group">
+							<input
+								type="text"
+								class="form-control"
+								name="task"
+								placeholder="What's Your Task"
+							/>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="d-grid gap-2">
+							<button class="btn btn-dark" type="submit">Add</button>
+						</div>
+					</div>
+				</form>
+				<ul class="list-group mt-2">
+					{% for todo in todos%}
+					<li class="list-group-item p-3">
+						<div class="d-flex justify-content-between">
+							<span
+								class="d-flex align-items-center {% if todo.status%} text-decoration-line-through {% else %}fw-semibold {% endif %}"
+							>
+								{{todo.title}}
+							</span>
+
+							<div class="">
+								<span>Added {{todo.created_at | timesince }} ago</span>
+								<span class="ms-2">
+									<a
+										href="{% url 'edit-todo' todo.id%}"
+										class="text-decoration-none link-dark"
+										><i class="bi bi-pencil-square"></i
+									></a>
+									<a
+										href="{% url 'delete-todo' todo.id %}"
+										class="text-decoration-none link-dark"
+										onclick="window.confirm('Are You Sure')"
+									>
+										<i class="bi bi-trash"></i
+									></a>
+								</span>
+							</div>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+		
+
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}
